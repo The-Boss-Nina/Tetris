@@ -9,7 +9,7 @@ public class GameWindow extends JFrame {
 
     public GameWindow() {
         setTitle("Tetris :D");
-        setSize(400, 700); // Diminuir altura para 700
+        setSize(400, 700); 
         setResizable(false);
 
         setLayout(new GridLayout(1, 2));

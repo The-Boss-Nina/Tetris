@@ -19,24 +19,19 @@ import game.tetris.Tetromino.Tetrominoes;
 public class GameBoardPanel extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = 6802492405004738658L;
-
-    // Configurações do tabuleiro
     private static final int BoardWidth = 10;
     private static final int BoardHeight = 20;
 
-    // Status do jogo e timer
     private Timer timer;
     private boolean isFallingDone = false;
     private boolean isStarted = false;
     private boolean isPaused = false;
     private int currentScore = 0;
 
-    // Tetromino atual
     private Tetromino curBlock;
     private int curX = 0;
     private int curY = 0;
 
-    // Tabuleiro do jogo
     private Tetrominoes[] gameBoard;
     private Color[] colorTable;
 
@@ -49,7 +44,6 @@ public class GameBoardPanel extends JPanel implements ActionListener {
 
         gameBoard = new Tetrominoes[BoardWidth * BoardHeight];
 
-        // Cores dos tetrominos
         colorTable = new Color[] {
             new Color(0, 0, 0), new Color(238, 64, 53),
             new Color(243, 119, 54), new Color(255, 201, 14),
@@ -170,7 +164,6 @@ public class GameBoardPanel extends JPanel implements ActionListener {
         Dimension size = getSize();
         int boardTop = (int) size.getHeight() - BoardHeight * blockHeight();
 
-        // Renderiza o tabuleiro
         for (int i = 0; i < BoardHeight; i++) {
             for (int j = 0; j < BoardWidth; j++) {
                 Tetrominoes shape = curTetrominoPos(j, BoardHeight - i - 1);
@@ -180,7 +173,6 @@ public class GameBoardPanel extends JPanel implements ActionListener {
             }
         }
 
-        // Renderiza o tetromino atual
         if (curBlock.getShape() != Tetrominoes.NO_BLOCK) {
             for (int i = 0; i < 4; i++) {
                 int x = curX + curBlock.getX(i);
