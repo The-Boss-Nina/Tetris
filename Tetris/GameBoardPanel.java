@@ -8,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.SwingUtilities;
 
 import game.tetris.Tetromino.Tetrominoes;
 
@@ -152,15 +154,17 @@ public class GameBoardPanel extends JPanel implements ActionListener {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
+    
         if (!isPaused) {
-            String currentStatus = "Pontuação: " + currentScore;
-            String currentLevel = "Nível: " + (currentScore / 10 + 1);
-
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Consolas", Font.PLAIN, 20));
-            g.drawString(currentStatus, 15, 35);
-            g.drawString(currentLevel, 15, 70);
+            Graphics2D g2d = (Graphics2D) g;
+    
+            String currentStatus = "Score: " + currentScore;
+            String currentLevel = "Level: " + (currentScore / 10 + 1);
+    
+            g2d.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.PLAIN, 18));
+            g2d.drawString(currentStatus, 15, 35);
+            g2d.drawString(currentLevel, 15, 70);
         }
 
         Dimension size = getSize();
@@ -279,11 +283,14 @@ public class GameBoardPanel extends JPanel implements ActionListener {
         curBlock.setRandomShape();
         curX = BoardWidth / 2 - 1;
         curY = BoardHeight - 1 + curBlock.minY();
-
+    
         if (!isMovable(curBlock, curX, curY)) {
             curBlock.setShape(Tetrominoes.NO_BLOCK);
             timer.stop();
             isStarted = false;
+    
+            SwingUtilities.invokeLater(() -> new GameFinale((GameWindow) SwingUtilities.getWindowAncestor(this)));
         }
     }
 }
+    

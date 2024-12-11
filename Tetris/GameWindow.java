@@ -14,6 +14,8 @@ public class GameWindow extends JFrame {
 
         setLayout(new GridLayout(1, 2));
 
+        System.setProperty("file.encoding", "UTF-8");
+
         GameBoardPanel gameBoard = new GameBoardPanel(this, 400);
         add(gameBoard);
         gameBoard.start();
